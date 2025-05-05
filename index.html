@@ -20,7 +20,7 @@
         />
     </head>
     <body>
-        <h1
+        <h2
             style="
                 display: flex;
                 align-items: center;
@@ -30,16 +30,137 @@
         >
             <img src="/icon.svg" height="50px" style="margin-right: 10px" />The
             TyX Editor
-        </h1>
+        </h2>
         <p style="margin-bottom: 20px">
             <i>A LyX-like experience rewritten for Typst and the modern era.</i>
         </p>
+        <div class="os macos">
+            <p class="button">
+                <a
+                    href="https://github.com/tyx-editor/TyX/releases/latest/download/TyX_x64.app.tar.gz"
+                    >Download for macOS</a
+                >
+            </p>
+            <p>
+                Decompress and drag the downloaded <code>TyX.app</code> file
+                into <code>/Applications</code>.
+            </p>
+            <p style="margin-bottom: 20px">
+                On newer macOS versions, you will need to open "System
+                Preferences" after trying to open the app and then "Privacy &
+                Security" and click "open anyways".
+            </p>
+        </div>
+
+        <p class="button os windows">
+            <a
+                href="https://github.com/tyx-editor/TyX/releases/latest/download/TyX_0.1.4_x64-setup.exe"
+                >Download for Windows</a
+            >
+        </p>
+        <p class="button os linux">
+            <a
+                href="https://github.com/tyx-editor/TyX/releases/latest/download/TyX_0.1.4_amd64.AppImage"
+                >Download AppImage</a
+            >
+        </p>
+        <p class="button os linux">
+            <a
+                href="https://github.com/tyx-editor/TyX/releases/latest/download/TyX_0.1.4_amd64.deb"
+                >Download .deb</a
+            >
+        </p>
+        <p class="button os linux">
+            <a
+                href="https://github.com/tyx-editor/TyX/releases/latest/download/TyX_0.1.4_amd64.rpm"
+                >Download .rpm</a
+            >
+        </p>
         <p>
             <a href="https://github.com/tyx-editor/TyX/releases/latest"
-                >Download</a
+                >All Downloads</a
             >
             • <a href="https://app.tyx-editor.com">Web Editor</a> •
             <a href="https://github.com/tyx-editor/TyX">Source Code</a>
         </p>
+        <script>
+            // Thanks: https://github.com/mantinedev/mantine/blob/master/packages/%40mantine/hooks/src/use-os/use-os.ts
+            // Copyright (c) 2021 Vitaly Rtishchev - MIT
+            // Changed to JavaScript
+
+            function isMacOS(userAgent) {
+                const macosPattern =
+                    /(Macintosh)|(MacIntel)|(MacPPC)|(Mac68K)/i;
+
+                return macosPattern.test(userAgent);
+            }
+
+            function isIOS(userAgent) {
+                const iosPattern = /(iPhone)|(iPad)|(iPod)/i;
+
+                return iosPattern.test(userAgent);
+            }
+
+            function isWindows(userAgent) {
+                const windowsPattern = /(Win32)|(Win64)|(Windows)|(WinCE)/i;
+
+                return windowsPattern.test(userAgent);
+            }
+
+            function isAndroid(userAgent) {
+                const androidPattern = /Android/i;
+
+                return androidPattern.test(userAgent);
+            }
+
+            function isLinux(userAgent) {
+                const linuxPattern = /Linux/i;
+
+                return linuxPattern.test(userAgent);
+            }
+
+            function isChromeOS(userAgent) {
+                const chromePattern = /CrOS/i;
+                return chromePattern.test(userAgent);
+            }
+
+            function getOS() {
+                if (typeof window === "undefined") {
+                    return "undetermined";
+                }
+
+                const { userAgent } = window.navigator;
+
+                if (
+                    isIOS(userAgent) ||
+                    (isMacOS(userAgent) && "ontouchend" in document)
+                ) {
+                    return "ios";
+                }
+                if (isMacOS(userAgent)) {
+                    return "macos";
+                }
+                if (isWindows(userAgent)) {
+                    return "windows";
+                }
+                if (isAndroid(userAgent)) {
+                    return "android";
+                }
+                if (isLinux(userAgent)) {
+                    return "linux";
+                }
+                if (isChromeOS(userAgent)) {
+                    return "chromeos";
+                }
+
+                return "undetermined";
+            }
+
+            const os = getOS();
+
+            document
+                .querySelectorAll(`.os.${os}`)
+                .forEach((element) => (element.style.display = "inline-block"));
+        </script>
     </body>
 </html>
