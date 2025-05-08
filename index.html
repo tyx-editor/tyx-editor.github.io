@@ -54,25 +54,25 @@
 
         <p class="button os windows">
             <a
-                href="https://github.com/tyx-editor/TyX/releases/download/v0.1.6/TyX_0.1.6_x64-setup.exe"
+                href="https://github.com/tyx-editor/TyX/releases/download/vVERSION/TyX_VERSION_x64-setup.exe"
                 >Download for Windows</a
             >
         </p>
         <p class="button os linux">
             <a
-                href="https://github.com/tyx-editor/TyX/releases/download/v0.1.6/TyX_0.1.6_amd64.AppImage"
+                href="https://github.com/tyx-editor/TyX/releases/download/vVERSION/TyX_VERSION_amd64.AppImage"
                 >Download AppImage</a
             >
         </p>
         <p class="button os linux">
             <a
-                href="https://github.com/tyx-editor/TyX/releases/download/v0.1.6/TyX_0.1.6_amd64.deb"
+                href="https://github.com/tyx-editor/TyX/releases/download/vVERSION/TyX_VERSION_amd64.deb"
                 >Download .deb</a
             >
         </p>
         <p class="button os linux">
             <a
-                href="https://github.com/tyx-editor/TyX/releases/download/v0.1.6/TyX-0.1.6-1.x86_64.rpm"
+                href="https://github.com/tyx-editor/TyX/releases/download/vVERSION/TyX-VERSION-1.x86_64.rpm"
                 >Download .rpm</a
             >
         </p>
@@ -161,6 +161,17 @@
             document
                 .querySelectorAll(`.os.${os}`)
                 .forEach((element) => (element.style.display = "inline-block"));
+
+            fetch("https://api.github.com/repos/tyx-editor/TyX/releases/latest")
+                .then((r) => r.json())
+                .then((r) => {
+                    document.querySelectorAll("a").forEach((link) => {
+                        link.href = link.href.replace(
+                            /VERSION/g,
+                            r.tag_name.slice(1)
+                        );
+                    });
+                });
         </script>
     </body>
 </html>
