@@ -44,3 +44,11 @@ a:visited {
 .button:hover {
     scale: 1.025;
 }
+
+i.ti {
+    margin-inline-end: 5px;
+}
+
+a:hover span {
+    text-decoration: underline;
+}
