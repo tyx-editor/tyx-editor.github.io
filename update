@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf ./schemas/*
+cp ../TyX/schemas/* ./schemas
